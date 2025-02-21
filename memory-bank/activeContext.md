@@ -1,107 +1,108 @@
 # Active Context
 
 ## Current Focus
-Refining camera controls and preparing for terrain interaction.
+World size system simplification and settings management.
 
 ## Recent Changes
-- Implemented basic Minecraft-like camera movement:
-  - WASD/arrow keys for horizontal movement
-  - Space to move up
-  - Control to move down
-  - Mouse for looking around
-  - Escape to toggle mouse capture
-- Switched to custom input actions (forward, backward, left, right, up, down)
-- Fixed mouse capture issues
-- Removed gravity
-
-## Working Implementation Details
+- Modified world size system:
+  - Direct mapping to chunk counts
+  - Simplified configuration (1 = 1 chunk)
+  - Improved chunk positioning
+  - Center-based generation
+- Implemented comprehensive settings system:
+  - GameSettings resource for configuration
+  - SettingsManager singleton
+  - Default settings file
+  - Error handling and fallbacks
+- Added robust documentation:
+  - Clear examples in README
+  - World size explanations
+  - Configuration guides
+  - Technical details
 
 ### Core Systems Status
-1. World Controller
-   - Proper initialization sequence
-   - Debug output implemented
-   - Camera tracking working
-   - Chunk management coordination
+1. Settings System
+   - Central configuration through game_settings.tres
+   - Proper error handling
+   - Default fallback values
+   - Easy-to-modify settings file
 
-2. Chunk Manager
-   - Dynamic scene loading
-   - Proper chunk tracking
-   - Position-based updates
-   - Error handling
-   - Debug logging
+2. World Controller
+   - Direct chunk count handling
+   - Centered world generation
+   - Proper chunk positioning
+   - Clean initialization sequence
 
-3. Chunk Implementation
-   - MultiMesh rendering working
-   - 3D Perlin noise terrain generation
-   - Proper voxel management
-   - Memory management
+3. Camera System
+   - Settings-based movement speeds
+   - Configurable mouse sensitivity
+   - Fallback to default values
+   - Proper error handling
 
-4. Camera System
-   - Custom input actions
-   - Mouse control functioning
-   - Proper input handling
-   - No gravity
+4. Terrain System
+   - Noise configuration from settings
+   - Adjustable generation parameters
+   - Default values when needed
+   - Clean error handling
+
+5. Lighting System
+   - Configurable light energies
+   - Environment settings control
+   - Proper fallback values
+   - Robust error checking
 
 ## Current Technical Configuration
-1. Performance Settings
-   - Chunk Size: 16x16x16
-   - Render Distance: 2 chunks
-   - Basic culling
+1. World Settings (in game_settings.tres)
+   - Chunk Size: 16x16x16 voxels
+   - World Size: 1x1x1 chunks (single chunk by default)
+   - Range: 1-32 chunks per dimension
+   - Centered generation
 
-2. Debug Features
-   - Comprehensive logging
-   - Error tracking
-   - State monitoring
-   - Initialization verification
+2. Player Settings
+   - Base Movement Speed: 10.0
+   - Sprint Speed: 20.0
+   - Mouse Sensitivity: 0.002
 
-3. Lighting Configuration
-    - Ambient Light: Enabled, Energy 0.5, White Color
-    - Directional Light: Enabled, Energy 0.2, Angled Position
+3. Terrain Settings
+   - Noise Seed: 12345
+   - Noise Frequency: 0.05
+   - Terrain Threshold: 0.2
 
-## Immediate Next Steps
+4. Graphics Settings
+   - Ambient Light Energy: 0.5
+   - Directional Light Energy: 0.2
 
-### Priority Tasks
-1. Optimization Work:
-   - Implement face culling
-   - Add frustum culling
-   - Optimize chunk updates
-   - Add performance metrics
+## Next Steps
+1. Testing
+   - Verify chunk generation
+   - Test different world sizes
+   - Validate centering
+   - Check edge cases
 
-2. Feature Addition:
-   - Terrain modification
-   - Proper collision
-   - Save/load system
-
-### Technical Improvements
-1. Chunk System:
-   - Optimize mesh generation
-   - Improve loading strategy
-   - Add chunk caching
-   - Implement better culling
-
-2. Visual Enhancements:
-   - Add basic texturing
-   - Implement proper lighting (Further improvements if needed)
-   - Add basic shadows
+2. Optimization
+   - Monitor chunk loading
+   - Review memory usage
+   - Profile performance
+   - Optimize generation
 
 ## Current Blockers
-None - Stable implementation achieved
+None - World size system simplified and working
 
 ## Development Priorities
-1. Maintain stability while adding features
-2. Implement proper terrain generation (Completed - 3D Perlin Noise)
-3. Add optimization systems
-4. Enhance visual feedback
+1. Verify world generation at different sizes
+2. Test edge cases (1x1x1 to 32x32x32)
+3. Monitor performance with larger worlds
+4. Consider chunk loading optimizations
 
 ## Notes
-- Current implementation is stable and working
-- Debug system provides good visibility
-- Chunk system handles basic operations well
-- Camera control is smooth and responsive
-- Memory management is functioning properly
+- Direct chunk count system is more intuitive
+- Settings system provides good flexibility
+- Error handling is comprehensive
+- Documentation is clear and detailed
 
 ## Preservation Points
-- Current chunk loading system works well
-- MultiMesh implementation is efficient
-- Scene hierarchy is properly structured
-- Error handling is comprehensive
+- Direct world size mapping
+- Centered chunk generation
+- Settings configuration
+- Error handling patterns
+- Documentation approach

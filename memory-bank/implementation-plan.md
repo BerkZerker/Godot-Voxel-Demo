@@ -1,160 +1,132 @@
-# Voxel Terrain Demo Implementation Plan
+# Scene Modularization Plan
 
-## Phase 1: Foundation (Week 1-2)
+## Current Issues
+- World scene has too many responsibilities
+- Lighting system not modular
+- Camera system directly in world scene
+- No dedicated UI scene structure
+- Limited scene reusability
 
-### 1.1 Project Setup (Days 1-2)
-- [ ] Create core scene structure
-- [ ] Set up version control
-- [ ] Implement base classes
-  - World controller
-  - Chunk manager
-  - Voxel data structure
-- [ ] Basic project organization
+## Proposed Scene Structure
 
-### 1.2 Basic Voxel System (Days 3-5)
-- [ ] Implement voxel data representation
-- [ ] Create basic cube mesh
-- [ ] Set up MultiMeshInstance3D
-- [ ] Basic voxel placement/removal
+### Core Scenes
+1. `scenes/world.tscn` (Main Scene)
+   - Primary scene coordinator
+   - Only essential world management
+   - References to modular subscenes
+   - Basic scene orchestration
 
-### 1.3 Camera System (Days 6-7)
-- [ ] WASD movement
-- [ ] Mouse rotation
-- [ ] Vertical movement (Space/Ctrl)
-- [ ] Speed adjustment
-- [ ] Collision detection
+2. `scenes/systems/terrain_system.tscn`
+   - WorldGenerator node
+   - ChunkManager node
+   - Encapsulates all terrain generation logic
+   - Self-contained terrain system
 
-## Phase 2: World Generation (Week 3-4)
+3. `scenes/systems/lighting_system.tscn`
+   - DirectionalLight3D
+   - WorldEnvironment
+   - Ambient lighting configuration
+   - Reusable lighting setup
 
-### 2.1 Terrain Generation (Days 1-3)
-- [ ] Implement Perlin noise generator
-- [ ] Height map generation
-- [ ] Basic terrain formation
-- [ ] Parameter adjustment system
+4. `scenes/player/player.tscn`
+   - Camera3D with controller
+   - Future player model/placeholder
+   - Input handling
+   - Movement system
 
-### 2.2 Chunk System (Days 4-7)
-- [ ] Chunk data structure
-- [ ] Chunk loading/unloading
-- [ ] Position-based updates
-- [ ] Basic optimization
-- [ ] Memory management
+5. `scenes/ui/hud.tscn` (Future)
+   - Debug information
+   - Performance metrics
+   - Player status
+   - Game controls
 
-## Phase 3: Optimization (Week 5-6)
+### Component Scenes
+1. `scenes/components/chunk.tscn`
+   - Individual chunk representation
+   - MultiMeshInstance3D
+   - Voxel management
+   - Local terrain generation
 
-### 3.1 Rendering Optimization (Days 1-3)
-- [ ] Implement frustum culling
-- [ ] Add occlusion culling
-- [ ] Optimize mesh generation
-- [ ] Batch rendering improvements
+### Implementation Steps
 
-### 3.2 Performance Tuning (Days 4-5)
-- [ ] Memory usage optimization
-- [ ] Chunk update batching
-- [ ] Loading/unloading optimization
-- [ ] Performance monitoring system
+1. System Separation
+   ```
+   scenes/
+   ├── world.tscn
+   ├── systems/
+   │   ├── terrain_system.tscn
+   │   └── lighting_system.tscn
+   ├── player/
+   │   └── player.tscn
+   ├── ui/
+   │   └── hud.tscn
+   └── components/
+       └── chunk.tscn
+   ```
 
-### 3.3 Testing & Metrics (Days 6-7)
-- [ ] FPS monitoring
-- [ ] Memory tracking
-- [ ] Loading time metrics
-- [ ] Optimization verification
+2. Scene Updates
+   - Create new scene files
+   - Move nodes to appropriate scenes
+   - Update references
+   - Ensure proper node communication
 
-## Phase 4: Enhanced Features (Week 7-8)
+3. Script Updates
+   - Update node paths
+   - Implement scene communication
+   - Add signal handling
+   - Update resource loading paths
 
-### 4.1 World Persistence (Days 1-3)
-- [ ] Save system implementation
-- [ ] Load system implementation
-- [ ] Modification tracking
-- [ ] Data compression
+4. Testing Plan
+   - Verify terrain generation
+   - Check lighting system
+   - Test player controls
+   - Validate chunk loading
+   - Monitor performance
 
-### 4.2 LOD System (Days 4-6)
-- [ ] Distance-based LOD
-- [ ] Mesh simplification
-- [ ] Smooth transitions
-- [ ] Performance validation
+## Benefits
+1. Better Maintainability
+   - Each system in isolated scene
+   - Clear responsibility boundaries
+   - Easier testing and debugging
+   - Simpler scene management
 
-### 4.3 AI Resource Integration (Days 1-3 - Optional)
-- [ ] Set up AI Resource Tool plugin
-- [ ] Configure import paths
-- [ ] Import AI-generated scenes
-- [ ] Integrate AI-generated assets
+2. Improved Reusability
+   - Systems can be reused
+   - Easy to swap components
+   - Better project scalability
+   - Modular development
 
-### 4.4 Final Polish (Days 7)
-- [ ] Bug fixes
-- [ ] Performance tweaks
-- [ ] Documentation updates
-- [ ] Final testing
+3. Enhanced Organization
+   - Logical scene hierarchy
+   - Clear system boundaries
+   - Better resource management
+   - Easier to understand structure
 
-## Key Milestones
+## Technical Considerations
+1. Scene Communication
+   - Use signals for inter-scene communication
+   - Implement proper scene references
+   - Maintain clean dependencies
+   - Consider autoload singletons if needed
 
-1. **Basic Prototype (End of Week 2)**
-   - Functional voxel rendering
-   - Basic camera movement
-   - Simple terrain generation
+2. Performance
+   - Monitor scene loading impact
+   - Optimize resource usage
+   - Consider lazy loading
+   - Track memory usage
 
-2. **Core Systems (End of Week 4)**
-   - Chunk management
-   - World generation
-   - Basic optimization
+3. Maintainability
+   - Document scene relationships
+   - Clear naming conventions
+   - Consistent organization
+   - Update Memory Bank
 
-3. **Performance Phase (End of Week 6)**
-   - Optimized rendering
-   - Efficient memory usage
-   - Stable performance metrics
-
-4. **Feature Complete (End of Week 8)**
-   - Save/Load functionality
-   - LOD system
-   - Polished experience
-
-## Risk Mitigation
-
-### Technical Risks
-1. **Performance Bottlenecks**
-   - Early profiling
-   - Incremental optimization
-   - Regular performance testing
-
-2. **Memory Management**
-   - Chunk size experimentation
-   - Memory pooling
-   - Resource monitoring
-
-3. **Scalability Issues**
-   - Progressive testing
-   - Load testing
-   - Performance benchmarks
-
-## Success Criteria
-
-### Performance Targets
-- 60+ FPS sustained
-- < 100ms chunk generation
-- < 1GB memory usage
-- Smooth camera movement
-
-### Quality Metrics
-- No visible chunk loading
-- Consistent frame timing
-- Responsive editing
-- Stable physics
-
-## Development Guidelines
-
-1. **Code Organization**
-   - Clear class hierarchy
-   - Documented interfaces
-   - Consistent naming
-   - Proper encapsulation
-
-2. **Testing Strategy**
-   - Regular performance tests
-   - Memory leak checks
-   - Functionality validation
-   - Edge case testing
-
-3. **Version Control**
-   - Feature branches
-   - Regular commits
-   - Clear commit messages
-   - Version tagging
+## Next Steps
+1. Create new directory structure
+2. Implement lighting system scene
+3. Create player scene
+4. Setup terrain system scene
+5. Update world scene
+6. Add UI scene structure
+7. Update documentation
+8. Test and verify

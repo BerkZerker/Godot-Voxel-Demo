@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba4q8u6yy0djc"]
+
+[ext_resource type="Script" path="res://scripts/ui/hud_controller.gd" id="1_uvwxy"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uvwxy")
+
+[node name="DebugInfo" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 300.0
+offset_bottom = 110.0
+
+[node name="FPSLabel" type="Label" parent="DebugInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "FPS: --"
+
+[node name="ChunksLabel" type="Label" parent="DebugInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Active Chunks: --"
+
+[node name="PositionLabel" type="Label" parent="DebugInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Position: --"

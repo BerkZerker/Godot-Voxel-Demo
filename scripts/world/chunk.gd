@@ -1,15 +1,19 @@
 @tool
 extends Node3D
 
+## Constants
+const CHUNK_SIZE = 16
+
+## Chunk Properties
 var chunk_position: Vector3i
 var voxel_data: Array = []
 var mesh_instance: MultiMeshInstance3D
 
-const CHUNK_SIZE = 16
-
+## Lifecycle Methods
 func _ready():
     initialize_chunk()
 
+## Initialization
 func initialize_chunk():
     # Initialize voxel data array
     voxel_data.resize(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE)
@@ -19,12 +23,13 @@ func initialize_chunk():
     mesh_instance = MultiMeshInstance3D.new()
     add_child(mesh_instance)
 
-    # Set up basic cube multimesh
+    # Setup rendering
     setup_multimesh()
 
     # Generate initial terrain
     generate_terrain()
 
+## Mesh Setup
 func setup_multimesh():
     var multimesh = MultiMesh.new()
 
@@ -32,24 +37,26 @@ func setup_multimesh():
     var mesh = BoxMesh.new()
     mesh.size = Vector3(1, 1, 1)
 
+    # Configure multimesh
     multimesh.mesh = mesh
     multimesh.transform_format = MultiMesh.TRANSFORM_3D
     multimesh.instance_count = 0  # Will be updated as voxels are added
-
     mesh_instance.multimesh = multimesh
 
-    # Create a default material (white)
+    # Setup default material
     var material = StandardMaterial3D.new()
     material.albedo_color = Color(1.0, 1.0, 1.0) # White color
     mesh_instance.material_override = material
 
+## Terrain Generation
 func generate_terrain():
-    # Get the world generator from the scene tree root
+    # Get the world generator from the scene tree
     var world_generator = get_tree().root.find_child("WorldGenerator", true, false)
     if world_generator == null:
         push_error("WorldGenerator not found in scene tree!")
         return
 
+    # Generate voxels based on noise
     for x in range(CHUNK_SIZE):
         for y in range(CHUNK_SIZE):
             for z in range(CHUNK_SIZE):
@@ -60,13 +67,15 @@ func generate_terrain():
                 # Get the 3D noise value
                 var noise_value = world_generator.get_voxel_value(world_x, world_y, world_z)
 
-                # Place voxel if noise value is above a threshold
+                # Place voxel if noise value is above threshold
                 if noise_value > 0.2: # Adjust threshold as needed
                     var voxel_pos = Vector3i(x, y, z)
                     set_voxel(voxel_pos, 1)  # 1 represents solid voxel
 
+    # Update the visual mesh
     update_mesh()
 
+## Voxel Management Methods
 func set_voxel(local_pos: Vector3i, value: int):
     if !is_position_valid(local_pos):
         push_warning("Invalid voxel position: ", local_pos)
@@ -83,6 +92,7 @@ func get_voxel(local_pos: Vector3i) -> int:
     var index = get_voxel_index(local_pos)
     return voxel_data[index]
 
+## Utility Methods
 func is_position_valid(pos: Vector3i) -> bool:
     return pos.x >= 0 && pos.x < CHUNK_SIZE && \
            pos.y >= 0 && pos.y < CHUNK_SIZE && \
@@ -91,6 +101,7 @@ func is_position_valid(pos: Vector3i) -> bool:
 func get_voxel_index(pos: Vector3i) -> int:
     return pos.x + (pos.y * CHUNK_SIZE * CHUNK_SIZE) + (pos.z * CHUNK_SIZE)
 
+## Mesh Update
 func update_mesh():
     var visible_voxels = []
 
@@ -116,4 +127,5 @@ func update_mesh():
         i += 1
 
 func _exit_tree():
+    # Cleanup resources if needed
     pass

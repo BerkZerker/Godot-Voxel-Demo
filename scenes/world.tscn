@@ -1,30 +1,18 @@
 [gd_scene load_steps=6 format=3 uid="uid://cxroycj5dudr4"]
 
-[ext_resource type="Script" path="res://scripts/world_controller.gd" id="1_w4k3l"]
-[ext_resource type="Script" path="res://scripts/chunk_manager.gd" id="2_m8n2p"]
-[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_y6p4l"]
-[ext_resource type="PackedScene" uid="uid://bdom43x0ui2cs" path="res://scenes/world_generator.tscn" id="4_ot5pm"]
-
-[sub_resource type="Environment" id="Environment_bpgjx"]
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.5
+[ext_resource type="Script" path="res://scripts/world/world_controller.gd" id="1_w4k3l"]
+[ext_resource type="PackedScene" uid="uid://d0c8jx2wy4nvp" path="res://scenes/systems/terrain_system.tscn" id="2_abcd1"]
+[ext_resource type="PackedScene" uid="uid://ctq5jj3m8347s" path="res://scenes/systems/lighting_system.tscn" id="3_efgh2"]
+[ext_resource type="PackedScene" uid="uid://b8sx0q8j1lq5k" path="res://scenes/player/player.tscn" id="4_ijkl3"]
+[ext_resource type="PackedScene" uid="uid://ba4q8u6yy0djc" path="res://scenes/ui/hud.tscn" id="5_mnop4"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_w4k3l")
 
-[node name="ChunkManager" type="Node3D" parent="."]
-script = ExtResource("2_m8n2p")
+[node name="TerrainSystem" parent="." instance=ExtResource("2_abcd1")]
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 20, 20)
-script = ExtResource("3_y6p4l")
+[node name="LightingSystem" parent="." instance=ExtResource("3_efgh2")]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0, 20, 0)
-light_energy = 0.2
+[node name="Player" parent="." instance=ExtResource("4_ijkl3")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_bpgjx")
-
-[node name="WorldGenerator" parent="." instance=ExtResource("4_ot5pm")]
+[node name="HUD" parent="." instance=ExtResource("5_mnop4")]
