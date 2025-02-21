@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxroycj5dudr4"]
+
+[ext_resource type="Script" path="res://scripts/world_controller.gd" id="1_w4k3l"]
+[ext_resource type="Script" path="res://scripts/chunk_manager.gd" id="2_m8n2p"]
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="3_y6p4l"]
+[ext_resource type="PackedScene" uid="uid://bdom43x0ui2cs" path="res://scenes/world_generator.tscn" id="4_ot5pm"]
+
+[sub_resource type="Environment" id="Environment_bpgjx"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.5
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_w4k3l")
+
+[node name="ChunkManager" type="Node3D" parent="."]
+script = ExtResource("2_m8n2p")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 20, 20)
+script = ExtResource("3_y6p4l")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0, 20, 0)
+light_energy = 0.2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bpgjx")
+
+[node name="WorldGenerator" parent="." instance=ExtResource("4_ot5pm")]

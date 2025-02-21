@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdom43x0ui2cs"]
+
+[ext_resource type="Script" path="res://scripts/world_generator.gd" id="1_pnmig"]
+
+[node name="WorldGenerator" type="Node"]
+script = ExtResource("1_pnmig")
