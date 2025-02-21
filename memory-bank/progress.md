@@ -1,7 +1,7 @@
 # Project Progress
 
 ## Current Status
-Basic implementation working successfully, terrain generation and basic lighting implemented.
+Basic implementation working successfully, terrain generation and basic lighting implemented. Voxel editing, player physics, realistic terrain generation, and reload command are in progress.
 
 ### Completed Items
 - Project repository created
@@ -50,7 +50,16 @@ Basic implementation working successfully, terrain generation and basic lighting
    - [ ] Memory tracking
    - [ ] Chunk update optimization
 
-## Stable Implementation Features
+6. Voxel Editing:
+    - [ ] Basic voxel placement and destruction
+
+7. Physics:
+    - [ ] Player physics and collision
+
+8. Terrain Generation:
+    - [ ] Realistic terrain generation
+
+### Stable Implementation Features
 1. Chunk System:
    - Dynamic chunk loading/unloading
    - Proper chunk initialization
@@ -80,6 +89,7 @@ Basic implementation working successfully, terrain generation and basic lighting
 1. Add chunk optimization systems
 2. Implement proper collision
 3. Add terrain modification
+4. Implement chunk size and voxel size settings
 
 ## Documentation Status
 - [x] Project brief

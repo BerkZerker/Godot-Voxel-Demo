@@ -18,6 +18,15 @@ The Voxel Terrain Demo serves as a technical showcase and foundation for voxel-b
    - Responsive terrain modification
    - Intuitive camera controls
    - Real-time world updates
+   - Intuitive voxel editing (destroy/place)
+   - Realistic terrain generation
+
+4. **Gameplay**
+    - Player physics and collision
+
+5. **Settings**
+    - Chunk size and render distance configurable via settings
+    - Voxel size configurable via settings
 
 ## User Experience Goals
 
@@ -32,6 +41,8 @@ The Voxel Terrain Demo serves as a technical showcase and foundation for voxel-b
 - Clear visual indicators for selection
 - Consistent physics behavior
 - No visible chunk loading/unloading
+- Intuitive voxel editing controls
+- Realistic and varied terrain
 
 ### Performance Expectations
 - Stable 60+ FPS
@@ -56,6 +67,9 @@ The Voxel Terrain Demo serves as a technical showcase and foundation for voxel-b
    - Character physics
    - Tool interactions
    - Building mechanics
+
+4.  Reload command to regenerate the world
+5.  More realistic terrain with layered perlin noise, with features such as plains, mountains, and forests with procedural trees
 
 ## Success Metrics
 1. Technical Performance
