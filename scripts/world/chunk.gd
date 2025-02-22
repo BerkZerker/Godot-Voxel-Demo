@@ -1,6 +1,7 @@
 @tool
 extends Node3D
 
+<<<<<<< HEAD
 ## Enums
 enum VoxelType {
 	AIR = 0,
@@ -10,14 +11,22 @@ enum VoxelType {
 
 ## Static Resources
 static var shared_material: StandardMaterial3D = null
+=======
+## Constants
+const CHUNK_SIZE = 16
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 
 ## Chunk Properties
 var chunk_position: Vector3i
 var voxel_data: Array = []
+<<<<<<< HEAD
 var mesh_instance: MeshInstance3D
 var settings_manager = null
 var world_generator = null
 var chunk_size: int = 16  # Default, will be updated from settings
+=======
+var mesh_instance: MultiMeshInstance3D
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 
 # Face direction constants
 const FACE_AXES = {
@@ -42,6 +51,7 @@ static func _setup_shared_material():
 
 ## Lifecycle Methods
 func _ready():
+<<<<<<< HEAD
 	_setup_shared_material()
 	
 	if has_node("/root/SettingsManager"):
@@ -89,6 +99,71 @@ func generate_terrain():
 				set_voxel(voxel_pos, VoxelType.SOLID if value > 0 else VoxelType.AIR)
 	
 	update_mesh()
+=======
+    initialize_chunk()
+
+## Initialization
+func initialize_chunk():
+    # Initialize voxel data array
+    voxel_data.resize(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE)
+    voxel_data.fill(0)  # Fill with air blocks initially
+
+    # Create mesh instance for voxels
+    mesh_instance = MultiMeshInstance3D.new()
+    add_child(mesh_instance)
+
+    # Setup rendering
+    setup_multimesh()
+
+    # Generate initial terrain
+    generate_terrain()
+
+## Mesh Setup
+func setup_multimesh():
+    var multimesh = MultiMesh.new()
+
+    # Create basic cube mesh
+    var mesh = BoxMesh.new()
+    mesh.size = Vector3(1, 1, 1)
+
+    # Configure multimesh
+    multimesh.mesh = mesh
+    multimesh.transform_format = MultiMesh.TRANSFORM_3D
+    multimesh.instance_count = 0  # Will be updated as voxels are added
+    mesh_instance.multimesh = multimesh
+
+    # Setup default material
+    var material = StandardMaterial3D.new()
+    material.albedo_color = Color(1.0, 1.0, 1.0) # White color
+    mesh_instance.material_override = material
+
+## Terrain Generation
+func generate_terrain():
+    # Get the world generator from the scene tree
+    var world_generator = get_tree().root.find_child("WorldGenerator", true, false)
+    if world_generator == null:
+        push_error("WorldGenerator not found in scene tree!")
+        return
+
+    # Generate voxels based on noise
+    for x in range(CHUNK_SIZE):
+        for y in range(CHUNK_SIZE):
+            for z in range(CHUNK_SIZE):
+                var world_x = chunk_position.x * CHUNK_SIZE + x
+                var world_y = chunk_position.y * CHUNK_SIZE + y
+                var world_z = chunk_position.z * CHUNK_SIZE + z
+
+                # Get the 3D noise value
+                var noise_value = world_generator.get_voxel_value(world_x, world_y, world_z)
+
+                # Place voxel if noise value is above threshold
+                if noise_value > 0.2: # Adjust threshold as needed
+                    var voxel_pos = Vector3i(x, y, z)
+                    set_voxel(voxel_pos, 1)  # 1 represents solid voxel
+
+    # Update the visual mesh
+    update_mesh()
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 
 ## Voxel Management Methods
 func set_voxel(local_pos: Vector3i, value: int):
@@ -108,6 +183,7 @@ func get_voxel(local_pos: Vector3i) -> int:
 
 ## Utility Methods
 func is_position_valid(pos: Vector3i) -> bool:
+<<<<<<< HEAD
 	return pos.x >= 0 && pos.x < chunk_size && \
 		   pos.y >= 0 && pos.y < chunk_size && \
 		   pos.z >= 0 && pos.z < chunk_size
@@ -270,6 +346,39 @@ func calculate_face_vertices(axis: String, is_positive: bool, base_pos: Vector3,
 func update_mesh():
 	var mesh = generate_mesh()
 	mesh_instance.mesh = mesh
+=======
+    return pos.x >= 0 && pos.x < CHUNK_SIZE && \
+           pos.y >= 0 && pos.y < CHUNK_SIZE && \
+           pos.z >= 0 && pos.z < CHUNK_SIZE
+
+func get_voxel_index(pos: Vector3i) -> int:
+    return pos.x + (pos.y * CHUNK_SIZE * CHUNK_SIZE) + (pos.z * CHUNK_SIZE)
+
+## Mesh Update
+func update_mesh():
+    var visible_voxels = []
+
+    # Count visible voxels
+    for x in range(CHUNK_SIZE):
+        for y in range(CHUNK_SIZE):
+            for z in range(CHUNK_SIZE):
+                var pos = Vector3i(x, y, z)
+                var voxel_value = get_voxel(pos)
+                if voxel_value > 0:
+                    visible_voxels.append(pos)
+
+    # Update multimesh
+    var multimesh = mesh_instance.multimesh
+    multimesh.instance_count = visible_voxels.size()
+
+    # Update transforms
+    var i = 0
+    for voxel_pos in visible_voxels:
+        var transform = Transform3D()
+        transform.origin = Vector3(float(voxel_pos.x), float(voxel_pos.y), float(voxel_pos.z))
+        multimesh.set_instance_transform(i, transform)
+        i += 1
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 
 func _exit_tree():
 	# Cleanup resources if needed

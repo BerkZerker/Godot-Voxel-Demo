@@ -6,18 +6,25 @@ signal chunk_loaded(chunk_pos: Vector3i)
 signal chunk_unloaded(chunk_pos: Vector3i)
 
 ## Chunk Management Properties
+<<<<<<< HEAD
 var chunk_size: int = 16  # Default, will be updated from settings
 var render_distance: int = 8
 var active_chunks: Dictionary = {}
 var visible_chunks: Dictionary = {}  # Chunks currently visible to camera
 var settings_manager = null
 var player_camera: Camera3D = null
+=======
+@export var chunk_size: int = 16
+@export var render_distance: int = 8
+@export var active_chunks: Dictionary = {}
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 
 ## Resource References
 var chunk_scene: PackedScene
 
 ## Lifecycle Methods
 func _ready():
+<<<<<<< HEAD
 	# Get settings manager
 	if has_node("/root/SettingsManager"):
 		settings_manager = get_node("/root/SettingsManager")
@@ -25,10 +32,13 @@ func _ready():
 	else:
 		push_error("SettingsManager not found! Using default values.")
 	
+=======
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 	# Load the chunk scene from components directory
 	chunk_scene = load("res://scenes/components/chunk.tscn")
 	if !chunk_scene:
 		push_error("Failed to load chunk scene!")
+<<<<<<< HEAD
 	
 	# Set up camera reference
 	await get_tree().create_timer(0.1).timeout  # Wait for scene to setup
@@ -48,6 +58,8 @@ func _ready():
 			push_error("Player camera not found in node: ", player.name)
 	else:
 		push_error("Player node not found in scene tree!")
+=======
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 
 ## Initialization
 func initialize(size: int, distance: int):
@@ -59,19 +71,30 @@ func load_chunk(chunk_pos: Vector3i):
 	# Skip if chunk already exists
 	if chunk_pos in active_chunks:
 		return
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 	# Create new chunk instance
 	var chunk = chunk_scene.instantiate()
 	if !chunk:
 		push_error("Failed to instantiate chunk scene at position: ", chunk_pos)
 		return
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 	# Setup and add chunk to scene
 	chunk.position = chunk_position_to_world(chunk_pos)
 	chunk.chunk_position = chunk_pos
 	add_child(chunk)
 	active_chunks[chunk_pos] = chunk
+<<<<<<< HEAD
 	visible_chunks[chunk_pos] = chunk  # Add to visible chunks immediately
+=======
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 	emit_signal("chunk_loaded", chunk_pos)
 
 func unload_chunk(chunk_pos: Vector3i):
@@ -84,6 +107,7 @@ func unload_chunk(chunk_pos: Vector3i):
 	if is_instance_valid(chunk):
 		chunk.queue_free()
 	active_chunks.erase(chunk_pos)
+<<<<<<< HEAD
 	visible_chunks.erase(chunk_pos)
 	emit_signal("chunk_unloaded", chunk_pos)
 
@@ -140,6 +164,23 @@ func chunk_position_to_world(chunk_pos: Vector3i) -> Vector3:
 		chunk_pos.x * chunk_size * voxel_size,
 		chunk_pos.y * chunk_size * voxel_size,
 		chunk_pos.z * chunk_size * voxel_size
+=======
+	emit_signal("chunk_unloaded", chunk_pos)
+
+## Position Conversion Methods
+func world_to_chunk_position(world_pos: Vector3) -> Vector3i:
+	return Vector3i(
+		floor(world_pos.x / chunk_size),
+		floor(world_pos.y / chunk_size),
+		floor(world_pos.z / chunk_size)
+	)
+
+func chunk_position_to_world(chunk_pos: Vector3i) -> Vector3:
+	return Vector3(
+		chunk_pos.x * chunk_size,
+		chunk_pos.y * chunk_size,
+		chunk_pos.z * chunk_size
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 	)
 
 ## Utility Methods

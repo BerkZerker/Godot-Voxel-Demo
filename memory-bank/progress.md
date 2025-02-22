@@ -23,6 +23,7 @@
 - ✓ Height-based terrain generation
 - ✓ Preliminary cave system
 
+<<<<<<< HEAD
 ### World Management
 - ✓ Chunk-based world system
 - ✓ Proper chunk positioning
@@ -30,6 +31,13 @@
 - ✓ World regeneration (R key)
 - ✓ Proper cleanup and state reset
 - ✓ Optimized mesh generation with greedy meshing
+=======
+2. Rendering:
+   - [x] MultiMeshInstance3D setup
+   - [x] Basic voxel mesh generation
+   - [ ] Chunk rendering optimization
+   - [ ] Culling implementation
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 
 ### Player Systems
 - ✓ Basic movement
@@ -87,12 +95,20 @@
 4. Enhance cave generation
 5. Add multiple block types
 
+<<<<<<< HEAD
 ## Notes
 - Core systems are stable and working
 - Terrain generation producing good results
 - Basic gameplay loop established
 - Greedy meshing significantly reduces draw calls
 - Ready for LOD implementation
+=======
+## Next Steps
+1. Add chunk optimization systems
+2. Implement proper collision
+3. Add terrain modification
+4. Implement chunk size and voxel size settings
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 
 ## Preservation Points
 - Keep optimized mesh generation approach with greedy meshing

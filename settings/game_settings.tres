@@ -4,7 +4,10 @@
 
 [resource]
 script = ExtResource("1_abcd1")
+<<<<<<< HEAD
 voxel_size = 1.0
+=======
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 chunk_size = 16
 world_size_x = 3
 world_size_y = 3

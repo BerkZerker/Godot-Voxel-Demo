@@ -3,7 +3,6 @@ class_name GameSettings
 
 ## World Generation Settings
 @export_group("World Settings")
-@export var voxel_size: float = 1.0  # Size of each voxel in world units
 @export var chunk_size: int = 16
 @export_range(1, 32) var world_size_x: int = 3  # Total number of chunks in X direction
 @export_range(1, 32) var world_size_y: int = 3  # Total number of chunks in Y direction

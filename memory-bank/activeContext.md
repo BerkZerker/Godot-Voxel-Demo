@@ -4,6 +4,7 @@
 Implementing performance optimizations through greedy meshing.
 
 ## Recent Changes
+<<<<<<< HEAD
 - Implemented greedy meshing:
   - Replaced MultiMeshInstance3D with optimized ArrayMesh
   - Added face merging algorithm for better performance
@@ -23,6 +24,29 @@ Implementing performance optimizations through greedy meshing.
   - Proper chunk cleanup and state reset
   - Signal handling for chunk loading/unloading
   - Noise reconfiguration on regeneration
+=======
+- Modified world size system:
+  - Direct mapping to chunk counts
+  - Simplified configuration (1 = 1 chunk)
+  - Improved chunk positioning
+  - Center-based generation
+- Implemented comprehensive settings system:
+  - GameSettings resource for configuration
+  - SettingsManager singleton
+  - Default settings file
+  - Error handling and fallbacks
+- Added robust documentation:
+  - Clear examples in README
+  - World size explanations
+  - Configuration guides
+  - Technical details
+- Implemented voxel editing (destroy/place)
+- Implemented player physics with collision and gravity
+- Started implementing realistic terrain generation with layered perlin noise
+- Added reload command to regenerate the world
+- Implemented chunk size and render distance settings
+- Implemented voxel size setting
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
 
 ### Core Systems Status
 1. Settings System

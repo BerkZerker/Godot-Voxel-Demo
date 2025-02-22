@@ -81,6 +81,7 @@ func get_noise_frequency() -> float:
     return settings.noise_frequency
     
 func get_terrain_threshold() -> float:
+<<<<<<< HEAD
     return settings.terrain_threshold
     
 func get_voxel_size() -> float:
@@ -93,3 +94,6 @@ func generate_seed() -> int:
         return settings.custom_seed
     # Otherwise generate a random seed
     return randi()
+=======
+    return settings.terrain_threshold
+>>>>>>> parent of a6f277b (voxel and chunk size settings)
