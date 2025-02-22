@@ -16,6 +16,6 @@ mouse_sensitivity = 0.002
 ambient_light_energy = 0.5
 directional_light_energy = 0.2
 custom_seed = -1
-noise_seed = 1258620046
+noise_seed = 1821750248
 noise_frequency = 0.05
 terrain_threshold = 0.2
