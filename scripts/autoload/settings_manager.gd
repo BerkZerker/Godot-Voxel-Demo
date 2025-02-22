@@ -73,3 +73,6 @@ func get_noise_frequency() -> float:
     
 func get_terrain_threshold() -> float:
     return settings.terrain_threshold
+    
+func get_voxel_size() -> float:
+    return settings.voxel_size
