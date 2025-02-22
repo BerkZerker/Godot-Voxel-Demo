@@ -3,6 +3,7 @@ class_name GameSettings
 
 ## World Generation Settings
 @export_group("World Settings")
+@export var voxel_size: float = 1.0  # Size of each voxel in world units
 @export var chunk_size: int = 16
 @export_range(1, 32) var world_size_x: int = 3  # Total number of chunks in X direction
 @export_range(1, 32) var world_size_y: int = 3  # Total number of chunks in Y direction
@@ -22,7 +23,6 @@ class_name GameSettings
 
 ## Terrain Generation Settings
 @export_group("Terrain Settings")
-@export var custom_seed: int = -1  # -1 means use random seed
-@export var noise_seed: int = 12345  # Current active seed
+@export var noise_seed: int = 12345
 @export var noise_frequency: float = 0.05
 @export var terrain_threshold: float = 0.2  # Value above which voxels are solid

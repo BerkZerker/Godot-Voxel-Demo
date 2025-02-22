@@ -4,8 +4,6 @@ extends Control
 @onready var fps_label = $DebugInfo/FPSLabel
 @onready var chunks_label = $DebugInfo/ChunksLabel
 @onready var position_label = $DebugInfo/PositionLabel
-@onready var seed_label = $DebugInfo/SeedLabel
-@onready var settings_manager = null
 
 # Update interval in seconds
 const UPDATE_INTERVAL = 0.1  # Increased update frequency for smoother display
@@ -14,10 +12,6 @@ var time_since_update = 0.0
 func _ready():
     # Ensure we process every frame for FPS counting
     process_mode = Node.PROCESS_MODE_ALWAYS
-    
-    # Get settings manager
-    if has_node("/root/SettingsManager"):
-        settings_manager = get_node("/root/SettingsManager")
 
 func _process(delta):
     time_since_update += delta
@@ -47,12 +41,3 @@ func update_debug_info():
         if camera:
             var pos = camera.global_position
             position_label.text = "Position: (%.1f, %.1f, %.1f)" % [pos.x, pos.y, pos.z]
-    
-    # Update seed display
-    if settings_manager:
-        var current_seed = settings_manager.get_noise_seed()
-        var custom_seed = settings_manager.get_custom_seed()
-        if custom_seed >= 0:
-            seed_label.text = "Seed: %d (Custom)" % current_seed
-        else:
-            seed_label.text = "Seed: %d" % current_seed

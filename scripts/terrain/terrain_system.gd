@@ -13,20 +13,13 @@ func initialize(chunk_size: int, render_distance: int):
 	if !chunk_manager:
 		push_error("ChunkManager node not found in TerrainSystem!")
 		return
-
+		
 	if !world_generator:
 		push_error("WorldGenerator node not found in TerrainSystem!")
 		return
-
-	# Disconnect existing signals if they exist
-	if chunk_manager.chunk_loaded.is_connected(_on_chunk_loaded):
-		chunk_manager.chunk_loaded.disconnect(_on_chunk_loaded)
-	if chunk_manager.chunk_unloaded.is_connected(_on_chunk_unloaded):
-		chunk_manager.chunk_unloaded.disconnect(_on_chunk_unloaded)
-
-	# Initialize chunk manager
+	
 	chunk_manager.initialize(chunk_size, render_distance)
-
+	
 	# Connect signals
 	chunk_manager.chunk_loaded.connect(_on_chunk_loaded)
 	chunk_manager.chunk_unloaded.connect(_on_chunk_unloaded)
@@ -38,19 +31,6 @@ func load_chunk(chunk_pos: Vector3i):
 # Unload a chunk at the specified position
 func unload_chunk(chunk_pos: Vector3i):
 	chunk_manager.unload_chunk(chunk_pos)
-
-# Clear all chunks from the world
-func clear_chunks():
-	if chunk_manager:
-		# Get list of all active chunks and unload them
-		var chunks = chunk_manager.get_active_chunks()
-		for chunk in chunks:
-			chunk_manager.unload_chunk(chunk.position)
-		
-		# Reset internal chunk manager state
-		chunk_manager.reset()
-	else:
-		push_error("ChunkManager node not found when trying to clear chunks!")
 
 # Get a chunk at a world position
 func get_chunk_at(world_pos: Vector3) -> Node3D:
