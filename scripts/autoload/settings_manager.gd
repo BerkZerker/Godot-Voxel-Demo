@@ -40,6 +40,12 @@ func save_settings():
     if error:
         push_error("Failed to save settings! Error: ", error)
 
+## Setter methods
+func set_noise_seed(value: int):
+    if settings:
+        settings.noise_seed = value
+        save_settings()
+
 ## Getter methods for easy access
 func get_chunk_size() -> int:
     return settings.chunk_size
@@ -65,6 +71,9 @@ func get_ambient_light_energy() -> float:
 func get_directional_light_energy() -> float:
     return settings.directional_light_energy
     
+func get_custom_seed() -> int:
+    return settings.custom_seed
+    
 func get_noise_seed() -> int:
     return settings.noise_seed
     
@@ -76,3 +85,11 @@ func get_terrain_threshold() -> float:
     
 func get_voxel_size() -> float:
     return settings.voxel_size
+
+## Generate a seed based on settings
+func generate_seed() -> int:
+    # If custom seed is set and valid, use it
+    if settings.custom_seed >= 0:
+        return settings.custom_seed
+    # Otherwise generate a random seed
+    return randi()

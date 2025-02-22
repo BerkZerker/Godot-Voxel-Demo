@@ -23,6 +23,7 @@ class_name GameSettings
 
 ## Terrain Generation Settings
 @export_group("Terrain Settings")
-@export var noise_seed: int = 12345
+@export var custom_seed: int = -1  # -1 means use random seed
+@export var noise_seed: int = 12345  # Current active seed
 @export var noise_frequency: float = 0.05
 @export var terrain_threshold: float = 0.2  # Value above which voxels are solid
