@@ -28,6 +28,7 @@ Basic implementation working successfully, terrain generation and basic lighting
 2. Rendering:
    - [x] MultiMeshInstance3D setup
    - [x] Basic voxel mesh generation
+   - [x] White wireframe rendering
    - [ ] Chunk rendering optimization
    - [ ] Culling implementation
 
@@ -89,7 +90,6 @@ Basic implementation working successfully, terrain generation and basic lighting
 1. Add chunk optimization systems
 2. Implement proper collision
 3. Add terrain modification
-4. Implement chunk size and voxel size settings
 
 ## Documentation Status
 - [x] Project brief

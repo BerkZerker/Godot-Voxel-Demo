@@ -25,6 +25,7 @@ World size system simplification, settings management, voxel editing, player phy
 - Added reload command to regenerate the world
 - Implemented chunk size and render distance settings
 - Implemented voxel size setting
+- Implemented white wireframe block rendering
 
 ### Core Systems Status
 1. Settings System
